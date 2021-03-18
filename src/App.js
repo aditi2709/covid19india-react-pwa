@@ -5,7 +5,6 @@ import { Detector } from "react-detect-offline";
 import './App.css';
 
 function App() {
-  // const localData = JSON.parse(localStorage.getItem('stateData'))
   const [appState, setAppState] = useState({
     loading: false,
     stateData: null
@@ -18,7 +17,7 @@ function App() {
       .then(reponse => {
         console.log('Server responded');
         const statewiseData = reponse.data.statewise;
-        // localStorage.setItem('stateData', JSON.stringify(statewiseData))
+        localStorage.setItem('stateData', JSON.stringify(statewiseData))
         setAppState({ loading: false, stateData: statewiseData });
       })
       .catch(error => {
@@ -26,8 +25,8 @@ function App() {
         console.log('Something went wrong');
       })
   }, [setAppState]);
-  // console.log(appState)
-  const { loading, stateData } = appState;
+  const { loading } = appState;
+  const stateData = JSON.parse(localStorage.getItem('stateData'))
   return (
     <Detector
       render={({ online }) => (
